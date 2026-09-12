@@ -2,14 +2,26 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 240 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
     <circle cx="32" cy="32" r="26" style="fill:white;stroke:black;stroke-width:4px;"/>
-    <g transform="matrix(0.924849,0,0,1,2.296276,0)">
-        <path d="M6,32C6,17.737 17.737,6 32,6C46.263,6 58,17.737 58,32L6,32Z" style="fill:rgb(66,255,80);fill-rule:nonzero;"/>
+    <g transform="matrix(0.924849,0,0,1,2.296276,0.662109)">
+        <path d="M6,32C6,17.737 17.737,6 32,6C46.263,6 58,17.737 58,32L6,32Z" style="fill:rgb(234,86,222);fill-rule:nonzero;"/>
     </g>
     <path d="M6,32L58,32" style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:4px;"/>
-    <circle cx="32" cy="32" r="9" style="fill:rgb(66,255,80);stroke:black;stroke-width:4px;"/>
+    <circle cx="32" cy="32" r="9" style="fill:rgb(185,35,255);stroke:black;stroke-width:4px;"/>
     <circle cx="32" cy="32" r="3.5" style="fill:rgb(42,42,42);stroke:black;stroke-width:2px;"/>
     <g transform="matrix(1,0,0,1,74,44)">
-        <text x="0px" y="0px" style="font-family:'Arial-BoldMT', 'Arial', sans-serif;font-weight:700;font-size:34px;fill:rgb(26,26,26);">P<tspan x="22.508px 43.106px 61.845px " y="0px 0px 0px ">oké</tspan></text>
-        <text x="80.585px" y="0px" style="font-family:'Arial-BoldMT', 'Arial', sans-serif;font-weight:700;font-size:34px;fill:rgb(66,255,80);">d<tspan x="101.183px 119.922px " y="0px 0px ">ex</tspan></text>
+        <g>
+            <text x="0px" y="0px" style="font-family:'Arial-BoldMT', 'Arial', sans-serif;font-weight:700;font-size:34px;fill:rgb(26,26,26);">P</text>
+            <g transform="matrix(1,0,0,1,22.508,0)">
+                <text x="0px" y="0px" style="font-family:'Arial-BoldMT', 'Arial', sans-serif;font-weight:700;font-size:34px;fill:rgb(26,26,26);">o<tspan x="20.598px 39.337px " y="0px 0px ">ké</tspan></text>
+            </g>
+        </g>
+        <g>
+            <g transform="matrix(1,0,0,1,80.585,0)">
+                <text x="0px" y="0px" style="font-family:'Arial-BoldMT', 'Arial', sans-serif;font-weight:700;font-size:34px;fill:rgb(66,255,80);">d</text>
+            </g>
+            <g transform="matrix(1,0,0,1,101.183,0)">
+                <text x="0px" y="0px" style="font-family:'Arial-BoldMT', 'Arial', sans-serif;font-weight:700;font-size:34px;fill:rgb(66,255,80);">e<tspan x="18.739px " y="0px ">x</tspan></text>
+            </g>
+        </g>
     </g>
 </svg>
