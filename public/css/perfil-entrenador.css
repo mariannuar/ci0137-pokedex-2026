@@ -8,7 +8,7 @@
      1. Íconos
      2. Tarjeta del entrenador
      3. Tarjetas de sección (los 4 botones grandes)
-     4. Diálogos: base, cabecera, cuerpo, pie
+     4. Diálogos: base, header, cuerpo, pie
      5. Piezas compartidas por los diálogos (sprite, número, pips)
      6. Equipo   7. Favoritos   8. Estadísticas   9. Capturados
    ========================================================================== */
@@ -424,13 +424,13 @@ body:has(dialog[open]) {
   overflow: hidden;
 }
 
-/* Colores propios de cada diálogo (los lee el ícono de la cabecera). */
+/* Colores propios de cada diálogo (los lee el ícono de la header). */
 .modal--equipo       { --color-modal: var(--azul); }
 .modal--favoritos    { --color-modal: var(--amarillo); }
 .modal--estadisticas { --color-modal: var(--verde); }
 .modal--capturados   { --color-modal: var(--rojo); }
 
-.modal__cabecera {
+.modal__header {
   flex: none;
   display: flex;
   align-items: center;
@@ -441,7 +441,7 @@ body:has(dialog[open]) {
 }
 
 @media (width >= 40rem) {
-  .modal__cabecera { padding-inline: 2rem; }
+  .modal__header { padding-inline: 2rem; }
 }
 
 .modal__titulo {
@@ -489,7 +489,7 @@ body:has(dialog[open]) {
   transform: rotate(90deg);
 }
 
-/* El cuerpo es lo único que hace scroll: cabecera y pie quedan fijos.
+/* El cuerpo es lo único que hace scroll: header y pie quedan fijos.
    flex: 1 + min-height: 0 es la receta para que un hijo flex pueda
    encogerse por debajo de su contenido y así activar overflow. */
 .modal__cuerpo {

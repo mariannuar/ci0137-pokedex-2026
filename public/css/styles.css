@@ -130,7 +130,10 @@ img {
      evita el "plano de papel";
    - sombra en capas (--sombra-2) y filo de luz arriba (--brillo);
    - borde fino translúcido en vez del amarillo grueso de antes; el amarillo
-     ahora aparece en la pastilla del número y en el hover. */
+     ahora aparece en la pastilla del número y en el hover.
+   - animation: aparecer ... backwards. "backwards" (y no "both") aplica el
+     estado inicial durante el retraso pero NO congela el final, así el
+     transform del :hover puede seguir funcionando después de entrar. */
 .pokemon-card {
   position: relative;
   container-type: inline-size;
@@ -141,7 +144,9 @@ img {
   border-radius: var(--radio-lg);
   padding: 1rem 1rem 1.25rem;
   box-shadow: var(--sombra-2), var(--brillo);
-  transition: box-shadow var(--dur) var(--ease), border-color var(--dur);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur);
+  animation: aparecer .55s var(--ease) backwards;
+  animation-delay: calc(var(--n, 0) * 55ms);
 }
 
 /* Cada tarjeta entra un poquito después que la anterior (efecto cascada).
@@ -518,6 +523,7 @@ section.buscador > p {
 .boton--rojo {
   background: var(--rojo);
   color: #fff;
+  box-shadow: 0 8px 18px -4px rgba(220, 45, 26, .55), inset 0 1px 0 rgba(255, 255, 255, .25);
 }
 
 .boton--claro {
