@@ -9,8 +9,8 @@ const router = express.Router();
 
 router.get('/', controlador.listar);                 // la lista
 router.get('/pokemon/:id', controlador.ver);         // la ficha, con URL limpia: /pokemon/7
-// router.get('/agregar', controlador.formularioNuevo); // el formulario, en página aparte
-// router.post('/pokemon', controlador.crear);          // crea y redirige a la lista
+router.get('/agregar', controlador.formularioNuevo); // el formulario, en página aparte
+router.post('/pokemon', controlador.crear);          // crea y redirige a la lista
 
 // El perfil ahora también es una plantilla. No tiene datos del servidor
 // (lo capturado lo llena perfil-entrenador.js en el navegador), así que

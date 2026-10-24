@@ -1,7 +1,11 @@
-// MODELO — es el dueño de los datos. Nadie más toca el arreglo directamente:
-// si mañana esto fuera una base de datos, solo cambiaría este archivo y el
-// resto de la app (controlador, vistas) ni se enteraría.
+// =============================================================
+//  MODELO — el dueño de los datos.
+//  Reutiliza los MISMOS datos del sitio (public/js/datos.js), así el
+//  servidor y el navegador leen de una sola fuente. datos.js es JavaScript
+//  puro (no toca el DOM), por eso Node lo puede importar sin problema.
+// =============================================================
 import { pokedex, buscarPorId, numeroPokedex, totalStats } from '../public/js/datos.js';
+
 // Re-exportamos lo que las vistas van a necesitar, para pedirlo todo al modelo.
 export { pokedex, buscarPorId, numeroPokedex, totalStats };
 
@@ -41,4 +45,3 @@ export function agregar(pokemon) {
   pokedex.push(pokemon);
   return pokemon;
 }
-

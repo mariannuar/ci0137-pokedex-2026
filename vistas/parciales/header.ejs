@@ -1,78 +1,77 @@
-<%# ===========================================================================
-     header.ejs — el <head> y el <header>, compartidos por todas las páginas.
-     Recibe (desde la vista que hace include):
-       titulo        -> el <title>
-       estilos       -> array con css extra (además de tokens y styles). Opcional.
-       paginaActual  -> cuál ítem del menú marcar como activo ('pokedex', 'perfil'...)
-       contador      -> texto del contador en el header. Opcional (solo la ficha lo usa).
-       script        -> ruta de un script de módulo. Opcional.
-     Las etiquetas que empiezan con numeral son comentarios de EJS: ayudan a
-     leer, pero NO salen en el HTML.
-=========================================================================== %>
-<!DOCTYPE html>
-<html lang="es">
+<%#===========================================================================header.ejs — el <head> y el <header>,
+    compartidos por todas las páginas.
+    Recibe (desde la vista que hace include):
+    titulo -> el <title>
+      estilos -> array con css extra (además de tokens y styles). Opcional.
+      paginaActual -> cuál ítem del menú marcar como activo ('pokedex', 'perfil'...)
+      contador -> texto del contador en el header. Opcional (solo la ficha lo usa).
+      script -> ruta de un script de módulo. Opcional.
+      Las etiquetas que empiezan con numeral son comentarios de EJS: ayudan a
+      leer, pero NO salen en el HTML.
+      =========================================================================== %>
+      <!DOCTYPE html>
+      <html lang="es">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%= titulo %></title>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+          <%= titulo %>
+        </title>
 
-    <%# Rutas absolutas (empiezan con /) para que funcionen desde cualquier
-        dirección, también desde /pokemon/7 que tiene un nivel más. %>
-    <link rel="icon" type="image/svg+xml" href="/assets/pokeball.svg">
-    <link rel="icon" type="image/png" href="/assets/pokeball.png">
+        <%# Rutas absolutas (empiezan con /) para que funcionen desde cualquier dirección, también desde /pokemon/7 que
+          tiene un nivel más. %>
+          <link rel="icon" type="image/svg+xml" href="/assets/pokeball.svg">
+          <link rel="icon" type="image/png" href="/assets/pokeball.png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fredoka:wght@500;600;700&display=swap">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fredoka:wght@500;600;700&display=swap">
 
-    <link rel="stylesheet" href="/css/tokens.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <%# css extra que pida la página (la lista pide capturado.css) %>
-    <% (typeof estilos !== 'undefined' ? estilos : []).forEach((hoja) => { %>
-    <link rel="stylesheet" href="<%= hoja %>">
-    <% }) %>
+          <link rel="stylesheet" href="/css/tokens.css">
+          <link rel="stylesheet" href="/css/styles.css">
+          <%# css extra que pida la página (la lista pide capturado.css) %>
+            <% (typeof estilos !=='undefined' ? estilos : []).forEach((hoja)=> { %>
+              <link rel="stylesheet" href="<%= hoja %>">
+              <% }) %>
 
-    <%# script de la página, solo si se pasa (la lista carga captura-lista.js) %>
-    <% if (typeof script !== 'undefined') { %>
-    <script type="module" src="<%= script %>"></script>
-    <% } %>
-  </head>
+                <%# script de la página, solo si se pasa (la lista carga captura-lista.js) %>
+                  <% if (typeof script !=='undefined' ) { %>
+                    <script type="module" src="<%= script %>"></script>
+                    <% } %>
+      </head>
 
-  <body>
+      <body>
 
-    <%# El menú se arma una sola vez acá (es JavaScript normal) y se reutiliza
-        tenga o no el contador al lado. El ítem de paginaActual lleva aria-current. %>
-    <%
-      const paginas = [
-        { href: '/',                   clave: 'pokedex', texto: 'Pokédex', accesskey: 'p' },
-        { href: '/perfil-entrenador',  clave: 'perfil',  texto: 'Perfil de entrenador' },
-        { href: '/acerca-de',          clave: 'acerca',  texto: 'Acerca de' },
-        { href: '/configuracion',      clave: 'config',  texto: 'Configuración' },
-      ];
-      const items = paginas.map((pg) =>
-        `<li><a href="${pg.href}"` +
-        (pg.accesskey ? ` accesskey="${pg.accesskey}"` : '') +
-        (pg.clave === paginaActual ? ' aria-current="page"' : '') +
-        `>${pg.texto}</a></li>`
-      ).join('\n            ');
-      const navHtml = `<nav>\n          <ul>\n            ${items}\n          </ul>\n        </nav>`;
-    %>
-    <header>
-      <p>
-        <a class="logo" href="/">
-          <img src="/assets/logo-pokedex.svg" alt="Pokédex" width="156" height="40">
-        </a>
-      </p>
+        <%# El menú se arma una sola vez acá (es JavaScript normal) y se reutiliza tenga o no el contador al lado. El
+          ítem de paginaActual lleva aria-current. %>
+          <% const paginas=[ { href: '/' , clave: 'pokedex' , texto: 'Pokédex' , accesskey: 'p' }, {
+            href: '/perfil-entrenador' , clave: 'perfil' , texto: 'Perfil de entrenador' }, { href: '/acerca-de' ,
+            clave: 'acerca' , texto: 'Acerca de' }, { href: '/configuracion' , clave: 'config' , texto: 'Configuración'
+            }, ]; const items=paginas.map((pg)=>
+            `<li><a href="${pg.href}" ` + (pg.accesskey ? ` accesskey="${pg.accesskey}" ` : '' ) +
+                (pg.clave===paginaActual ? ' aria-current="page"' : '' ) + `>${pg.texto}</a></li>`
+            ).join('\n ');
+            const navHtml = `<nav>\n <ul>\n ${items}\n </ul>\n </nav>`;
+            %>
+            <header>
+              <p>
+                <a class="logo" href="/">
+                  <img src="/assets/logo-pokedex.svg" alt="Pokédex" width="156" height="40">
+                </a>
+              </p>
 
-      <% if (typeof contador !== 'undefined') { %>
-      <%# La ficha mete el contador y el menú dentro de .header__acciones %>
-      <div class="header__acciones">
-        <p class="contador"><%= contador %></p>
-        <%- navHtml %>
-      </div>
-      <% } else { %>
-      <%# La lista solo lleva el menú %>
-      <%- navHtml %>
-      <% } %>
-    </header>
+              <% if (typeof contador !=='undefined' ) { %>
+                <%# La ficha mete el contador y el menú dentro de .header__acciones %>
+                  <div class="header__acciones">
+                    <p class="contador">
+                      <%= contador %>
+                    </p>
+                    <%- navHtml %>
+                  </div>
+                  <% } else { %>
+                    <%# La lista solo lleva el menú %>
+                      <%- navHtml %>
+                        <% } %>
+            </header>

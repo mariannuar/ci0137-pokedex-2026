@@ -1,7 +1,9 @@
-// CONTROLADOR — el intermediario. Recibe la petición, le pide los datos al
-// modelo y decide qué vista mostrar. No sabe de dónde salen los datos ni
-// cómo se ve el HTML: solo coordina las dos cosas.
-
+// =============================================================
+//  CONTROLADOR — el intermediario.
+//  Recibe la petición, le pide datos al modelo, prepara lo que la vista
+//  necesita y llama a respuesta.render(). No arma HTML (eso es de las
+//  vistas) ni guarda datos (eso es del modelo): solo coordina.
+// =============================================================
 import * as modelo from '../modelos/pokedex.js';
 
 // Primera letra en mayúscula: "fuego" -> "Fuego" (lo usaba ficha.js).
@@ -11,7 +13,7 @@ function mayus(t) {
 
 // -------- GET /  ->  la lista (reemplaza index.html) --------
 export function listar(peticion, respuesta) {
-  // Leemos los filtros de la query string (/?nombre=...&tipo=...).
+  // Leemos los filtros de la query string (?nombre=...&tipo=...).
   const filtros = {
     nombre: peticion.query.nombre ?? '',
     tipo: peticion.query.tipo ?? '',
@@ -29,6 +31,7 @@ export function listar(peticion, respuesta) {
     numeroPokedex: modelo.numeroPokedex,  // helper para las tarjetas
   });
 }
+
 // -------- GET /pokemon/7  ->  la ficha (reemplaza detalle.html) --------
 export function ver(peticion, respuesta) {
   const id = Number(peticion.params.id);   // el :id de la ruta /pokemon/:id
