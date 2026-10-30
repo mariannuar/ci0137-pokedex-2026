@@ -48,7 +48,8 @@
           ítem de paginaActual lleva aria-current. %>
           <% const paginas=[ { href: '/' , clave: 'pokedex' , texto: 'Pokédex' , accesskey: 'p' }, {
             href: '/perfil-entrenador' , clave: 'perfil' , texto: 'Perfil de entrenador' }, { href: '/arena' ,
-            clave: 'arena' , texto: 'Arena' }]; const items=paginas.map((pg)=>
+            clave: 'arena' , texto: 'Arena' }, { href: '/memoria', clave: 'memoria', texto: 'Memoria' }];
+            const items=paginas.map((pg)=>
             `<li><a href="${pg.href}" ` + (pg.accesskey ? ` accesskey="${pg.accesskey}" ` : '' ) +
                 (pg.clave===paginaActual ? ' aria-current="page"' : '' ) + `>${pg.texto}</a></li>`
             ).join('\n ');

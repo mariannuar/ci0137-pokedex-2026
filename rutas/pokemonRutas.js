@@ -16,4 +16,6 @@ router.get('/perfil-entrenador', (peticion, respuesta) => respuesta.render('perf
 
 router.get('/arena', (peticion, respuesta) => respuesta.render('arena'));
 
+router.get('/memoria', (peticion, respuesta) => respuesta.render('memoria'));
+
 export default router;
