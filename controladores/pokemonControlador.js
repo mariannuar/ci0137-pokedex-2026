@@ -1,19 +1,18 @@
 // =============================================================
 //  CONTROLADOR — el intermediario.
 //  Recibe la petición, le pide datos al modelo, prepara lo que la vista
-//  necesita y llama a respuesta.render(). No arma HTML (eso es de las
-//  vistas) ni guarda datos (eso es del modelo): solo coordina.
+//  necesita y llama a respuesta.render(). Como ahora el modelo trae los
+//  datos de la PokéAPI (es asíncrono), los controladores usan async/await.
 // =============================================================
 import * as modelo from '../modelos/pokedex.js';
 
-// Primera letra en mayúscula: "fuego" -> "Fuego" (lo usaba ficha.js).
+// Primera letra en mayúscula: "fuego" -> "Fuego".
 function mayus(t) {
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
-// -------- GET /  ->  la lista (reemplaza index.html) --------
-export function listar(peticion, respuesta) {
-  // Leemos los filtros de la query string (?nombre=...&tipo=...).
+// -------- GET /  ->  la lista --------
+export async function listar(peticion, respuesta) {
   const filtros = {
     nombre: peticion.query.nombre ?? '',
     tipo: peticion.query.tipo ?? '',
@@ -22,35 +21,33 @@ export function listar(peticion, respuesta) {
     etapa: peticion.query.etapa ?? 'todas',
   };
 
-  const pokemones = modelo.filtrarYOrdenar(filtros);
+  const pokemones = await modelo.filtrarYOrdenar(filtros);
 
   respuesta.render('lista', {
     titulo: 'Pokédex - Lista de Pokémon',
     pokemones,
-    filtros,                              // para dejar el formulario como estaba
-    numeroPokedex: modelo.numeroPokedex,  // helper para las tarjetas
+    filtros,
+    numeroPokedex: modelo.numeroPokedex,
   });
 }
 
-// -------- GET /pokemon/7  ->  la ficha (reemplaza detalle.html) --------
-export function ver(peticion, respuesta) {
-  const id = Number(peticion.params.id);   // el :id de la ruta /pokemon/:id
-  const pokemon = modelo.buscarPorId(id);
+// -------- GET /pokemon/7  ->  la ficha --------
+export async function ver(peticion, respuesta) {
+  const id = Number(peticion.params.id);
+  const pokemon = await modelo.buscarPorId(id);
 
-  // Si no existe ese id, mostramos la página 404 (la misma que para cualquier
-  // dirección que no exista).
   if (!pokemon) {
     respuesta.status(404).render('404');
     return;
   }
 
   // Carrusel: 5 vecinos (dos antes, el actual, dos después), circular.
-  const todos = modelo.obtenerTodos();
+  const todos = await modelo.obtenerTodos();
   const n = todos.length;
   const i = todos.findIndex((x) => x.id === id);
   const vecinos = [];
   for (let k = -2; k <= 2; k++) {
-    const vecino = todos[(i + k + n) % n];   // el % da la vuelta (circular)
+    const vecino = todos[(i + k + n) % n];
     vecinos.push({ pokemon: vecino, pos: k, activo: k === 0 });
   }
 
@@ -60,7 +57,7 @@ export function ver(peticion, respuesta) {
   const entradas = Object.entries(pokemon.stats);
   const alta = entradas.reduce((a, b) => (b[1] > a[1] ? b : a));
   const baja = entradas.reduce((a, b) => (b[1] < a[1] ? b : a));
-  const lectura = `${pokemon.nombre} destaca en ${etiquetas[alta[0]]} (${alta[1]}) y es débil en en ${etiquetas[baja[0]]} (${baja[1]}).`;
+  const lectura = `${pokemon.nombre} destaca en ${etiquetas[alta[0]]} (${alta[1]}) y es débil en ${etiquetas[baja[0]]} (${baja[1]}).`;
 
   respuesta.render('detalle', {
     titulo: `Pokédex - ${pokemon.nombre}`,
@@ -72,16 +69,19 @@ export function ver(peticion, respuesta) {
   });
 }
 
-// -------- GET /agregar  ->  el formulario, en su propia página --------
+// -------- GET /api/pokemon  ->  los datos en JSON (lo consume el perfil) --------
+export async function listarJson(peticion, respuesta) {
+  respuesta.json(await modelo.obtenerTodos());
+}
+
+// -------- GET /agregar  ->  el formulario --------
 export function formularioNuevo(peticion, respuesta) {
   respuesta.render('agregar', { titulo: 'Pokédex - Agregar un Pokémon' });
 }
 
 // -------- POST /pokemon  ->  agrega uno y vuelve a la lista --------
-export function crear(peticion, respuesta) {
+export async function crear(peticion, respuesta) {
   const nombre = (peticion.body.nombre || '').trim();
-  // Armamos el objeto con lo del formulario y valores por defecto para el resto,
-  // para que la ficha del nuevo no se rompa (stats en cero, sin habilidades, etc.).
   const nuevo = {
     id: Number(peticion.body.id),
     nombre,
@@ -97,6 +97,6 @@ export function crear(peticion, respuesta) {
     genus: peticion.body.genus || '',
     descripcion: peticion.body.descripcion || '',
   };
-  modelo.agregar(nuevo);
-  respuesta.redirect('/');   // patrón "POST y redirigir"
+  await modelo.agregar(nuevo);
+  respuesta.redirect('/');
 }
