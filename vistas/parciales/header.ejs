@@ -47,9 +47,8 @@
         <%# El menú se arma una sola vez acá (es JavaScript normal) y se reutiliza tenga o no el contador al lado. El
           ítem de paginaActual lleva aria-current. %>
           <% const paginas=[ { href: '/' , clave: 'pokedex' , texto: 'Pokédex' , accesskey: 'p' }, {
-            href: '/perfil-entrenador' , clave: 'perfil' , texto: 'Perfil de entrenador' }, { href: '/arena' , clave: 'arena' , texto: 'Arena' }, { href: '/acerca-de' ,
-            clave: 'acerca' , texto: 'Acerca de' }, { href: '/configuracion' , clave: 'config' , texto: 'Configuración'
-            }, ]; const items=paginas.map((pg)=>
+            href: '/perfil-entrenador' , clave: 'perfil' , texto: 'Perfil de entrenador' }, { href: '/arena' ,
+            clave: 'arena' , texto: 'Arena' }]; const items=paginas.map((pg)=>
             `<li><a href="${pg.href}" ` + (pg.accesskey ? ` accesskey="${pg.accesskey}" ` : '' ) +
                 (pg.clave===paginaActual ? ' aria-current="page"' : '' ) + `>${pg.texto}</a></li>`
             ).join('\n ');
